@@ -1,10 +1,10 @@
 books = Dir.glob("books/*")
 processes = []
 books.each do |book|
-  next if book.include?(".mobi")
+  next unless book.include?(".epub")
   processes << Process.fork do
     to = "#{book}".gsub("epub", "mobi")
-    response = %x( ebook-convert "#{book}" "#{to}")
+    %x( ebook-convert "#{book}" "#{to}")
     print "."
     exit
   end
